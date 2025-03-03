@@ -6,13 +6,18 @@
         </NuxtLink>
       </template>
 
+      
       <v-app-bar-title
         class="text-wheet ml-1 mt-0 cursor-pointer"
         style="
           font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
           font-size: 35px;
         "
-        >AssisThem</v-app-bar-title
+        >
+        <NuxtLink to="/" class="mt-2 text-decoration-none text-white">
+        AssisThem
+      </NuxtLink>
+        </v-app-bar-title
       >
 
         <v-tabs v-model="tab" color="white">

@@ -1,3 +1,7 @@
 <template>
-    <h1>Welcome to our e-Learning Plateform!</h1>
+<v-container>
+    <ProductCard></ProductCard>
+    <CourseCard></CourseCard>
+</v-container>
+
 </template>
