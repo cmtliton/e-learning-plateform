@@ -5,7 +5,7 @@
         <NuxtPage/>
   </v-col>
   <v-col cols="12" sm="3">
-    <p class="text-center text-body-1 my-2">Course {{ useCourse().title }}</p>
+    <p class="text-center text-body-1 my-2 text-white">Course {{ useCourse().title }}</p>
     <PlayList :chapters="chapters"></PlayList>
   </v-col>
 </v-row>

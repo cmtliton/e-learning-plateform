@@ -1,8 +1,8 @@
 <template>
-  <v-footer class="border rounded-b-xl bg-teal-lighten-1">
+  <v-footer class="border rounded-b-xl bg-blue-grey-darken-4">
     <v-row class="pt-12">
       <v-col cols="12" md="4" class="text-h6">
-        <v-card flat color="teal-lighten-1">
+        <v-card flat variant="text">
           <template v-slot:prepend>
             <v-img
               src="~/assets/logo_new.png"
@@ -47,7 +47,7 @@
             >
               <v-hover>
                 <template v-slot:default="{isHovering, props}">
-                  <NuxtLink :to="item.url">
+                  <NuxtLink :to="item.url" class="text-white">
                     <div
                       v-bind="props"
                       :class="isHovering? 'font-weight-bold text-success cursor-pointer rounded-xl' : undefined"
@@ -64,8 +64,8 @@
 
       <v-row class="ma-2 border-t-thin">
         <v-col cols="12" md="4"
-          ><p class="text-subtitle-1 text-medium-emphasis text-start">Subscribe to newsletter</p>
-          <p class="text-subtitle-2 text-medium-emphasis text-start">
+          ><p class="text-subtitle-1 text-start text-white">Subscribe to newsletter</p>
+          <p class="text-subtitle-2 text-start text-white">
             Get Tips & Tricks, Updates, Fresh Blogs & Offers.
           </p>
           </v-col
@@ -90,13 +90,13 @@
 
         <v-row class="border-t-thin">
           <v-col cols="12" md="6">
-            <p class="text-medium-emphasis text-center">
+            <p class="text-white text-center">
               Need any further assistance? <strong>Call Us: </strong> +880
               1728-493546, +880 1711-034299
             </p>
           </v-col>
           <v-col cols="12" md="6">
-            <p class="text-medium-emphasis text-center">
+            <p class="text-white text-center">
               @2024-{{ new Date().getFullYear() }}<strong> AssisThem.</strong>
               All rights reserved.
             </p>
@@ -160,9 +160,9 @@
   ])
   const footers = ref([
     {
-      id: 3,
-      name: 'Products',
-      title: 'Products',
+      id: 1,
+      name: 'AssisThem',
+      title: 'AssisThem',
       src: 'mdi-account-outlined',
       url: '',
       desc: '',
@@ -170,37 +170,46 @@
       items: [
         {
           id: 1,
-          name: 'Application UI',
-          title: 'Application UI',
+          name: 'Courses',
+          title: 'Courses',
           src: 'mdi-account-outlined',
-          url: '/products/cards',
+          url: '/',
           desc: '',
           status: true,
         },
         {
           id: 2,
-          name: 'Marketing',
-          title: 'Marketing',
+          name: 'Conferences',
+          title: 'Conferences',
           src: 'mdi-account-outlined',
-          url: '/products/galleries',
+          url: '/conferences',
           desc: '',
           status: true,
         },
         {
           id: 3,
-          name: 'Ecommerce',
-          title: 'Ecommerce',
+          name: 'Blog',
+          title: 'Blog',
           src: 'mdi-account-outlined',
-          url: '/products/Cards',
+          url: '/blog',
           desc: '',
           status: true,
         },
         {
           id: 4,
-          name: 'Vue Gallery',
-          title: 'Vue Gallery',
+          name: 'Learning Path',
+          title: 'Learning Path',
           src: 'mdi-account-outlined',
-          url: '/products/galleries',
+          url: '/learning-path',
+          desc: '',
+          status: true,
+        },
+        {
+          id: 5,
+          name: 'Live Training',
+          title: 'Live Training',
+          src: 'mdi-account-outlined',
+          url: '/learning-path',
           desc: '',
           status: true,
         },

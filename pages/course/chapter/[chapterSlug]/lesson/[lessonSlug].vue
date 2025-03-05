@@ -1,6 +1,6 @@
 <template>
         <div>
-            <p class="text-center text-body-1 my-2">Lesson {{ chapter.number }} - {{ lesson.number }} {{ lesson.title }}</p>
+            <p class="mx-2 text-body-1 text-white my-2 text-center">Lesson {{ chapter.number }} - {{ lesson.number }} {{ lesson.title }}</p>
              <VideoPlayer v-if="lesson.videoId" :videoId="lesson.videoId" :liton="chapter.number"></VideoPlayer>
             <div class="d-flex text-body-2 mx-2">
                 <NuxtLink v-if="lesson.sourceUrl"
@@ -13,7 +13,7 @@
             </NuxtLink>
             
             </div>
-            <p class="ma-2 text-body-2">{{ lesson.text }}</p>
+            <p class="ma-2 text-body-2 text-white">{{ lesson.text }}</p>
               <LessonCompleteButton :model-value="isLessonComplete"
             @update:model-value="toggleComplete"/>
         </div>

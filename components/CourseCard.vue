@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h1 class="ml-2 text-high-emphasis"> Mastering Vue 3</h1>
+        <h1 class="ml-2 text-indigo-darken-4"> Mastering Vue 3</h1>
     <v-row>
         <v-col cols="12" sm="4" v-for="(course, index) in courses">
             <v-hover v-slot="{ isHovering, props }">

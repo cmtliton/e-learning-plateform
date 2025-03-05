@@ -24,7 +24,7 @@ const props = defineProps({
   <iframe v-if="liton===100"
     width="100%"
     height="99%"
-    :src="`https://www.youtube.com/embed/${videoId}?list=PL3VM-unCzF8hy47mt9-chowaHNjfkuEVz`"
+    :src="`https://www.youtube.com/embed/${videoId}`"
     title="Video player"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
