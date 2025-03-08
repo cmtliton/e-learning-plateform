@@ -1,7 +1,9 @@
 <template>
-<v-container>
+  <v-container>
     <ProductCard></ProductCard>
     <CourseCard></CourseCard>
-</v-container>
-
+  </v-container>
 </template>
+
+<script setup lang="ts">
+</script>

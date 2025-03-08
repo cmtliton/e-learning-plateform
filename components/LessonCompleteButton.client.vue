@@ -6,7 +6,7 @@
     :model-value="modelValue"
   ></v-checkbox-btn>
 </template>
-<script setup lang="ts">
+<script setup>
   defineProps({
       modelValue: {
           type: Boolean,

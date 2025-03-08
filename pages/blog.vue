@@ -1,12 +1,9 @@
 <template>
     <v-layout>
-    <div class="mx-auto py-16">
-        <h1 class="text-center text-white">defineProps and defineEmits</h1>
-        <LessonCompleteButton :modelValue="isComplete" @update:model-value="toggleComplete"/>
-    </div>
+    <CourseCard/>
     </v-layout>
 </template>
-<script setup lang="ts">
+<script setup>
 import { LessonCompleteButton } from '#components';
 import {ref } from 'vue'
 const isComplete = ref(false)
