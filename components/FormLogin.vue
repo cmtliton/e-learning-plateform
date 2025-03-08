@@ -55,6 +55,7 @@
             @click="login('google')"
             size="large"
             prepend-icon="mdi-google"
+            :loading="loading"
           >
             Google
           </v-btn>
@@ -77,6 +78,7 @@
             rounded
             @click="login('github')"
             prepend-icon="mdi-github"
+            :loading="loading"
           >
             Github
           </v-btn>
@@ -97,8 +99,8 @@ defineProps({
   Sign: {
     type: String,
     required: true,
-  }
-})
+  },
+});
 
 function onSubmit() {
   if (!form.value) return;
@@ -122,6 +124,7 @@ watchEffect(async () => {
 });
 
 const login = async (provider: any) => {
+  loading.value = true;
   const queryParams =
     query.redirectTo !== undefined ? `?redirectTo=${query.redirectTo}` : "";
   const redirectTo = `${window.location.origin}/confirm${queryParams}`;

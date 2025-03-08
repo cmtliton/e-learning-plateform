@@ -81,19 +81,11 @@
 </template>
 <script setup lang="ts">
 const user = useSupabaseUser()
-const { query } = useRoute();
-watchEffect(async () => {
-  if (user.value) {
-    await navigateTo(query.redirectTo as string, {
-      replace: true,
-    });
-  }
-});
 </script>
 <style scoped>
 #bg-pricing {
   background-image: url("/public/course/pricing.jpg");
-  background-repeat: repeat-x;
+  background-repeat: repeat-x repeat-y;
   background-size: 100%;
 }
 </style>

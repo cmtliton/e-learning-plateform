@@ -11,7 +11,12 @@
             :key="index"
             :to="firstLesson.path"
           >
-            <v-img height="200px" :src="course.image" cover></v-img>
+            <v-img
+              height="200px"
+              lazy-src="https://picsum.photos/id/11/100/60"
+              :src="course.image"
+              cover
+            ></v-img>
 
             <v-card-text>
               <h2 class="text-h6 text-primary">{{ course.title }}</h2>

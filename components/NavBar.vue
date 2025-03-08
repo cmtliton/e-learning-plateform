@@ -84,11 +84,8 @@
     expand-on-hover
   >
     <v-list v-if="user">
-      <v-list-item
-        :prepend-avatar="profile"
-        :title="name"
-        :subtitle="email"
-      ></v-list-item>
+      <v-list-item :prepend-avatar="profile" :title="name" :subtitle="email">
+      </v-list-item>
     </v-list>
 
     <v-divider></v-divider>
@@ -128,7 +125,7 @@
               class="text-none"
             >
               Login
-              <Login />
+              <SignIn />
             </v-btn>
           </v-list-item-title>
         </v-hover>
@@ -163,9 +160,9 @@ const logout = async () => {
   const { error } = await auth.signOut();
   if (error) {
     console.error(error);
-    return true
+    return true;
   }
-  await navigateTo('/');
+  await navigateTo("/");
 };
 
 const items = [
