@@ -4,7 +4,7 @@
       <v-fade-transition hide-on-leave>
         <v-row justify="center" align="top">
           <v-col cols="12" md="6">
-            <v-card class="mx-auto rounded-lg" elevation="10">
+            <v-card class="mx-auto rounded-lg" elevation="10" max-width="500px">
               <v-toolbar color="cyan-darken-4" density="comfortable">
                 <v-card-title>Let's Get You Signed Up.!</v-card-title>
                 <template v-slot:append>
@@ -68,7 +68,8 @@ import { ref } from "vue";
 const form = ref(true);
 const email = ref(null);
 const password = ref(null);
-const loading = ref(false);
+const loading_github = ref(false);
+const loading_google = ref(false);
 const dialog = ref(false);
 
 function onSubmit() {

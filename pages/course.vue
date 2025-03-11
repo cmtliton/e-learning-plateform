@@ -34,4 +34,10 @@ const resetError = async (error) => {
   );
   error.value = null;
 };
+useHead({
+    title: 'Course',
+    meta: [
+        {name: '', content: ''},
+    ]
+})
 </script>

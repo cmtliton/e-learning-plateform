@@ -1,18 +1,17 @@
 <template>
-    <v-layout>
-    <CourseCard/>
-    </v-layout>
+  <v-layout>
+    <CourseCard />
+  </v-layout>
 </template>
 <script setup>
-import { LessonCompleteButton } from '#components';
-import {ref } from 'vue'
-const isComplete = ref(false)
+import { ref } from "vue";
+const isComplete = ref(false);
 
-const toggleComplete = ()=> {
-    return isComplete.value = ! isComplete.value
-}
-
+const toggleComplete = () => {
+  return (isComplete.value = !isComplete.value);
+};
+useHead({
+    title: 'Blog'
+})
 </script>
 
-<style scoped>
-</style>

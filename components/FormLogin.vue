@@ -55,7 +55,7 @@
             @click="login('google')"
             size="large"
             prepend-icon="mdi-google"
-            :loading="loading"
+            :loading="loading_google"
           >
             Google
           </v-btn>
@@ -78,7 +78,7 @@
             rounded
             @click="login('github')"
             prepend-icon="mdi-github"
-            :loading="loading"
+            :loading="loading_github"
           >
             Github
           </v-btn>
@@ -94,6 +94,8 @@ const form = ref(true);
 const email = ref(null);
 const password = ref(null);
 const loading = ref(false);
+const loading_github = ref(false);
+const loading_google = ref(false);
 
 defineProps({
   Sign: {
@@ -124,7 +126,7 @@ watchEffect(async () => {
 });
 
 const login = async (provider: any) => {
-  loading.value = true;
+  provider === 'google' ? loading_google.value = true : loading_github.value = true
   const queryParams =
     query.redirectTo !== undefined ? `?redirectTo=${query.redirectTo}` : "";
   const redirectTo = `${window.location.origin}/confirm${queryParams}`;

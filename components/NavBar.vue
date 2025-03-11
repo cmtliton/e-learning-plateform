@@ -80,7 +80,7 @@
     location="right"
     width="300"
     temporary
-    class="bg-grey-darken-1 border"
+    class="bg-cyan-darken-3 border"
     expand-on-hover
   >
     <v-list v-if="user">
