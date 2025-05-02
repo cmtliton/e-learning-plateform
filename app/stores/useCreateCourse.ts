@@ -54,7 +54,19 @@ export const useCreateCourse = defineStore("createCourse", () => {
   };
 
   const addLesson = (sectionIndex: number) => {
-    course.value.chapters[sectionIndex]?.lessons.push();
+    console.log("addLesson", sectionIndex);
+    course.value.chapters[sectionIndex]?.lessons.push({
+      id: 0,
+      title: "",
+      slug: "",
+      number: 0,
+      videoId: "",
+      text: "",
+      downloadUrl: "",
+      imageUrl: "",
+      sourceUrl: undefined,
+      path: "",
+    });
   };
 
   const removeLesson = (sectionIndex: number, lessonIndex: number) => {

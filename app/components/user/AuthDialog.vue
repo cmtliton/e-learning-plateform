@@ -27,20 +27,27 @@
 
         <v-card-text class="pa-0">
           <!-- Conditionally render the forms -->
-          <SignInForm
+          <UserSignInForm
             v-if="currentView === 'signIn'"
             @sign-in-submit="handleSignIn"
             @switch-to-sign-up="switchToSignUp"
+            @sign-in-google="Login('google')"
+            @sign-in-github="Login('github')"
+            :loading_github="loading_github"
+            :loading_google="loading_google"
+            :loading="loading"
           />
-          <SignUpForm
+          <UserSignUpForm
             v-else
             @sign-up-submit="handleSignUp"
             @switch-to-sign-in="switchToSignIn"
             @sign-in-google="Login('google')"
+            @sign-in-github="Login('github')"
+            :loading_github="loading_github"
+            :loading_google="loading_google"
+            :loading="loading"
           />
         </v-card-text>
-
-        <!-- Actions can be placed here OR within the forms as done above -->
       </v-card>
     </v-dialog>
   </div>
@@ -48,14 +55,15 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import SignInForm from "./SignInForm.vue"; // Adjust path if needed
-import SignUpForm from "./SignUpForm.vue"; // Adjust path if needed
-
+const supabase = useSupabaseClient();
+const { query } = useRoute();
+const user = useSupabaseUser();
 // --- State ---
 const dialog = ref(false); // Controls dialog visibility
 const currentView = ref("signIn"); // 'signIn' or 'signUp'
 const loading_github = ref(false);
 const loading_google = ref(false);
+const loading = ref(false);
 
 // --- Methods ---
 const openDialog = (view = "signIn") => {
@@ -65,8 +73,6 @@ const openDialog = (view = "signIn") => {
 
 const closeDialog = () => {
   dialog.value = false;
-  // Optional: Reset view to default when closing
-  // setTimeout(() => { currentView.value = 'signIn'; }, 300); // Delay if needed for transition
 };
 
 const switchToSignIn = () => {
@@ -77,38 +83,42 @@ const switchToSignUp = () => {
   currentView.value = "signUp";
 };
 
-const handleSignIn = (formData: any) => {
-  console.log("Handling Sign In in AuthDialog:", formData);
-  // Perform actual sign-in logic (API call, etc.)
-  // On success:
-  closeDialog();
-  // On failure:
-  // Show error message (potentially within the SignInForm)
+const handleSignIn = async (formData: any) => {
+  loading.value = true;
+  const queryParams =
+    query.redirectTo !== undefined ? `?redirectTo=${query.redirectTo}` : "";
+  const redirectTo = `${window.location.origin}/confirm${queryParams}`;
+  const { error } = await supabase.auth.signInWithPassword({
+    email: formData.email,
+    password: formData.password,
+  });
+  if (error) {
+    console.error(error);
+    alert("Invalid credentials. Please try again." + error);
+  } else {
+    navigateTo(redirectTo, { replace: true });
+    closeDialog();
+  }
+
+  loading.value = false;
 };
 
-const handleSignUp = (formData: any) => {
-  console.log("Handling Sign Up in AuthDialog:", formData);
-  // Perform actual sign-up logic (API call, etc.)
-  // On success:
-  // Maybe switch to sign in view or show success message
-  // switchToSignIn();
-  // Or just close
-  closeDialog();
-  // On failure:
-  // Show error message (potentially within the SignUpForm)
+const handleSignUp = async (formData: any) => {
+  loading.value = true;
+  const { email, password } = formData;
+  const { error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+  });
+  if (error) {
+    alert("Error signing up: " + error.message);
+  } else {
+    alert("Check your email for the confirmation link.");
+    closeDialog();
+  }
+
+  loading.value = false;
 };
-
-// If actions were in this component:
-// const submitForm = () => {
-//   // This would require refs to the child forms to trigger their submit methods
-//   // Or have the child forms emit data on every change (less ideal)
-//   // It's generally better to have the submit buttons within the forms themselves.
-//   console.log('Submit logic would go here if actions were in parent');
-// }
-
-const supabase = useSupabaseClient();
-const { query } = useRoute();
-const user = useSupabaseUser();
 
 watchEffect(async () => {
   if (user.value) {
@@ -122,19 +132,8 @@ const Login = async (provider: any) => {
   provider === "google"
     ? (loading_google.value = true)
     : (loading_github.value = true);
-  const queryParams =
-    query.redirectTo !== undefined ? `?redirectTo=${query.redirectTo}` : "";
-  const redirectTo = `${window.location.origin}/confirm${queryParams}`;
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: provider,
-    options: { redirectTo },
-  });
-  if (error) {
-    console.error(error);
-  }
+  useAuth().login(provider);
 };
 </script>
 
-<style scoped>
-/* Optional: Add styles for the dialog trigger button or dialog itself */
-</style>
+<style scoped></style>

@@ -66,6 +66,7 @@
             rounded
             block
             variant="text"
+            @click="$emit('sign-in-email')"
           >
             Sign Up
           </v-btn>
@@ -107,7 +108,7 @@
                 variant="outlined"
                 size="large"
                 rounded
-                @click="login('github')"
+                @click="$emit('sign-in-github')"
                 prepend-icon="mdi-github"
                 :loading="loading_github"
               >
@@ -137,21 +138,33 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
+defineProps({
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  loading_google: {
+    type: Boolean,
+    default: false,
+  },
+  loading_github: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 // --- Emits ---
 const emit = defineEmits([
   "sign-up-submit",
   "switch-to-sign-in",
   "sign-in-google",
+  "sign-in-github",
 ]);
 
 // --- State ---
 const email = ref("");
 const password = ref("");
-const loading = ref(false);
-const loading_github = ref(false);
-const loading_google = ref(false);
 const form = ref(true);
 
 // --- Methods ---
@@ -163,15 +176,10 @@ const submitSignUp = () => {
     useEmailRules().email(email.value) === true &&
     useEmailRules().minLength(6)(password.value) === true
   ) {
-    console.log("Sign Up Submitted:", {
-      email: email.value,
-      password: "***",
-    });
     emit("sign-up-submit", {
       email: email.value,
       password: password.value,
     });
-    // Optionally reset fields or close dialog via parent
   } else {
     console.log("Sign Up form invalid");
     // Optionally show error message
@@ -179,6 +187,4 @@ const submitSignUp = () => {
 };
 </script>
 
-<style scoped>
-/* Add any specific styles if needed */
-</style>
+<style scoped></style>

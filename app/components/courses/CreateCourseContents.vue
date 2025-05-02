@@ -1,9 +1,9 @@
 <template>
-  <v-container class="pa-4" fluid>
+  <v-container fluid>
     <v-card class="mx-auto">
       <v-card-text>
         <v-form @submit.prevent="submitForm" ref="form">
-          <v-row dense class="mx-5">
+          <v-row dense class="mx-auto">
             <v-col cols="12">
               <h4 class="text-h6 mb-2">Course Content</h4>
             </v-col>
@@ -30,7 +30,7 @@
                         :key="lessonIndex"
                       >
                         <v-row dense no-gutters>
-                          <v-col cols="12" sm="10">
+                          <v-col cols="12" sm="11">
                             <v-text-field
                               v-model="lesson.title"
                               placeholder="Lesson Title"
@@ -39,25 +39,28 @@
                               density="compact"
                             ></v-text-field>
                           </v-col>
-                          <v-col cols="12" sm="1">
-                            <CoursesCreateLesson
-                              :sectionIndex="sectionIndex"
-                              :lessonIndex="lessonIndex"
-                            />
-                          </v-col>
-                          <v-col cols="12" sm="1">
-                            <v-btn
-                              icon="$close"
-                              variant="text"
-                              color="error"
-                              size="x-small"
-                              @click="
-                                useCreateCourse().removeLesson(
-                                  sectionIndex,
-                                  lessonIndex
-                                )
-                              "
-                            ></v-btn>
+                          <v-col cols="6" sm="1">
+                            <div class="d-flex justify-start">
+                              <span class="me-n2"
+                                ><CoursesCreateLesson
+                                  :sectionIndex="sectionIndex"
+                                  :lessonIndex="lessonIndex"
+                              /></span>
+                              <span>
+                                <v-btn
+                                  icon="mdi-close-circle-outline"
+                                  variant="text"
+                                  color="error"
+                                  size="small"
+                                  @click="
+                                    useCreateCourse().removeLesson(
+                                      sectionIndex,
+                                      lessonIndex
+                                    )
+                                  "
+                                ></v-btn>
+                              </span>
+                            </div>
                           </v-col>
                         </v-row>
                       </v-list-item>

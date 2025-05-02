@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="submitSignIn">
+    <v-form v-model="form" @submit.prevent="submitSignIn">
       <v-row dense no-gutters>
         <v-col cols="12">
           <v-text-field
@@ -35,7 +35,6 @@
             type="submit"
             rounded
             block
-            @click=""
             variant="text"
           >
             Sign In
@@ -54,7 +53,7 @@
                 min-width="92"
                 variant="outlined"
                 rounded
-                @click="login('google')"
+                @click="$emit('sign-in-google')"
                 size="large"
                 prepend-icon="mdi-google"
                 :loading="loading_google"
@@ -78,7 +77,7 @@
                 variant="outlined"
                 size="large"
                 rounded
-                @click="login('github')"
+                @click="$emit('sign-in-github')"
                 prepend-icon="mdi-github"
                 :loading="loading_github"
               >
@@ -130,19 +129,41 @@ import { ref } from "vue";
 
 // --- Emits ---
 // Define the events this component can emit
-const emit = defineEmits(["sign-in-submit", "switch-to-sign-up"]);
+defineProps({
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  loading_google: {
+    type: Boolean,
+    default: false,
+  },
+  loading_github: {
+    type: Boolean,
+    default: false,
+  },
+});
+const emit = defineEmits([
+  "sign-in-submit",
+  "switch-to-sign-up",
+  "sign-in-google",
+  "sign-in-github",
+]);
 
 // --- State ---
 const email = ref("");
 const password = ref("");
+const form = ref(true); // Form validation state
 
 // --- Methods ---
 const submitSignIn = () => {
   // Basic validation check (you might use v-form's validation state)
-  if (email.value && password.value && rules.email(email.value) === true) {
-    console.log("Sign In Submitted:", { email: email.value, password: "***" });
+  if (
+    email.value &&
+    password.value &&
+    useEmailRules().email(email.value) === true
+  ) {
     emit("sign-in-submit", { email: email.value, password: password.value });
-    // Optionally reset fields or close dialog via parent after successful submit
   } else {
     console.log("Sign In form invalid");
     // Optionally show an error message

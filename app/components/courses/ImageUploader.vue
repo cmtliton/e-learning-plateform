@@ -4,7 +4,7 @@
       <v-card-title>Upload Image</v-card-title>
       <v-card-text>
         <v-form @submit.prevent="handleUpload">
-          <v-row dense class="pt-2 mx-5">
+          <v-row dense class="pt-2 mx-auto">
             <v-col cols="12" sm="12">
               <v-img
                 lazy-src="https://picsum.photos/id/11/100/60"

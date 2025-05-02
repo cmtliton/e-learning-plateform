@@ -15,22 +15,26 @@
           </v-toolbar>
           <v-divider></v-divider>
 
-          <div class="ma-4"><UsersFormLogin Sign="Sign In" /></div>
-
-          <v-divider></v-divider>
-          <v-card-actions class="bg-grey-lighten-3 text-grey-darken-1">
-            <v-btn
-              flat
-              rounded
-              class="text-indigo text-none"
-              @click="$emit('switch-to-sign-up')"
-              >Sign Up</v-btn
-            >
-            <v-spacer></v-spacer>
-            <v-btn flat rounded class="text-indigo text-none"
-              >Forgot your password?</v-btn
-            >
-          </v-card-actions>
+          <div class="ma-4">
+            <UserSignInForm
+              v-if="currentView === 'signIn'"
+              @sign-in-submit="handleSignIn"
+              @switch-to-sign-up="switchToSignUp"
+              @sign-in-google="Login('google')"
+              @sign-in-github="Login('github')"
+              :loading_github="loading_github"
+              :loading_google="loading_google"
+            />
+            <UserSignUpForm
+              v-else
+              @sign-up-submit="handleSignUp"
+              @switch-to-sign-in="switchToSignIn"
+              @sign-in-google="Login('google')"
+              @sign-in-github="Login('github')"
+              :loading_github="loading_github"
+              :loading_google="loading_google"
+            />
+          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -43,4 +47,63 @@ useHead({
   title: "Login",
   meta: [{ name: "", content: "" }],
 });
+const currentView = ref("signIn");
+const loading_github = ref(false);
+const loading_google = ref(false);
+
+const switchToSignIn = () => {
+  currentView.value = "signIn";
+};
+
+const switchToSignUp = () => {
+  currentView.value = "signUp";
+};
+
+const supabase = useSupabaseClient();
+const { query } = useRoute();
+const user = useSupabaseUser();
+
+watchEffect(async () => {
+  if (user.value) {
+    await navigateTo(query.redirectTo as string, {
+      replace: true,
+    });
+  }
+});
+
+const Login = async (provider: any) => {
+  provider === "google"
+    ? (loading_google.value = true)
+    : (loading_github.value = true);
+  useAuth().login(provider);
+};
+
+const handleSignIn = async (formData: any) => {
+  const queryParams =
+    query.redirectTo !== undefined ? `?redirectTo=${query.redirectTo}` : "";
+  const redirectTo = `${window.location.origin}/confirm${queryParams}`;
+  const { error } = await supabase.auth.signInWithPassword({
+    email: formData.email,
+    password: formData.password,
+  });
+  if (error) {
+    console.error(error);
+    alert("Invalid credentials. Please try again." + error.message);
+  } else {
+    navigateTo(redirectTo, { replace: true });
+  }
+};
+
+const handleSignUp = async (formData: any) => {
+  const { email, password } = formData;
+  const { error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+  });
+  if (error) {
+    alert("Error signing up: " + error.message);
+  } else {
+    alert("Check your email for the confirmation link.");
+  }
+};
 </script>

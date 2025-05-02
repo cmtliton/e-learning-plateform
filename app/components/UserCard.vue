@@ -4,7 +4,11 @@
 
     <v-menu activator="parent">
       <v-list density="compact" nav>
-        <v-list-item append-icon="mdi-account-outline" link :title="name" />
+        <v-list-item
+          append-icon="mdi-account-outline"
+          link
+          :title="name ? name : 'Unnamed'"
+        />
 
         <v-list-item
           append-icon="mdi-logout"
@@ -20,13 +24,17 @@
 const user = useSupabaseUser();
 const { auth } = useSupabaseClient();
 const name = computed(() => user.value?.user_metadata.full_name);
-const profile = computed(() => user.value?.user_metadata.avatar_url);
+const profile = computed(() =>
+  user.value?.user_metadata.avatar_url !== undefined
+    ? user.value?.user_metadata.avatar_url
+    : "https://lh3.googleusercontent.com/a/ACg8ocIGyEMzmZQoA-rB038ib2nZi2McQxbilYvkLQ5upkUmwQ-o4k_H=s96-c"
+);
 const logout = async () => {
   const { error } = await auth.signOut();
   if (error) {
     console.error(error);
-    return true
+    return true;
   }
-  await navigateTo('/');
+  await navigateTo("/");
 };
 </script>

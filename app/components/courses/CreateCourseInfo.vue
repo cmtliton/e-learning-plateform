@@ -1,10 +1,10 @@
 <template>
-  <v-container class="pa-4" fluid>
+  <v-container fluid>
     <v-card class="mx-auto">
       <v-card-title class="text-black text-h6">Course Create</v-card-title>
       <v-card-text>
         <v-form @submit.prevent="submitForm" ref="form">
-          <v-row dense class="pt-5 mx-5">
+          <v-row dense class="pt-5 mx-auto">
             <v-col cols="12" sm="12">
               <v-text-field
                 v-model="useCreateCourse().course.title"

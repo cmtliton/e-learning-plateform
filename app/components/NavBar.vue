@@ -54,10 +54,6 @@
       >
         {{ item.title }}
       </v-tab>
-      <!-- <v-tab class="text-none text-body-1" v-if="!user">
-        Sign Up
-        <SignUp />
-      </v-tab> -->
       <v-spacer />
       <v-tab v-if="!user">
         <userAuthDialog />
@@ -95,35 +91,9 @@
           <v-list-item-title class="py-2"> {{ item.title }}</v-list-item-title>
           <v-divider></v-divider>
         </NuxtLink>
-        <!-- <v-hover v-slot:default="{ isHovering, props }" v-if="!user">
-          <v-list-item-title class="py-2" v-bind="props">
-            <v-btn
-              flat
-              block
-              :color="isHovering ? 'indigo-darken-4' : 'grey-darken-2'"
-              rounded="pill"
-              class="text-none"
-            >
-              Sign Up
-              <SignUp />
-            </v-btn>
-          </v-list-item-title>
-        </v-hover> -->
-        <v-hover v-slot:default="{ isHovering, props }" v-if="!user">
-          <v-list-item-title class="py-2" v-bind="props">
-            <!-- <v-btn
-              flat
-              block
-              :color="isHovering ? 'indigo-darken-4' : 'green'"
-              rounded="pill"
-              class="text-none"
-            >
-              Login
-              <SignIn />
-            </v-btn> -->
-            <userAuthDialog />
-          </v-list-item-title>
-        </v-hover>
+        <v-list-item-title class="py-2" v-if="!user">
+          <UserAuthDialog />
+        </v-list-item-title>
         <v-list-item-title class="py-2" v-if="user">
           <v-btn
             prepend-icon="mdi-logout"
@@ -148,7 +118,11 @@ const user = useSupabaseUser();
 const { auth } = useSupabaseClient();
 
 const name = computed(() => user.value?.user_metadata.full_name);
-const profile = computed(() => user.value?.user_metadata.avatar_url);
+const profile = computed(() =>
+  user.value?.user_metadata.avatar_url !== undefined
+    ? user.value?.user_metadata.avatar_url
+    : "https://lh3.googleusercontent.com/a/ACg8ocIGyEMzmZQoA-rB038ib2nZi2McQxbilYvkLQ5upkUmwQ-o4k_H=s96-c"
+);
 const email = computed(() => user.value?.user_metadata.email);
 
 const logout = async () => {
