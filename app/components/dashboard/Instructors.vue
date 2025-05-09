@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="auto" md="6" v-for="card in cards" :key="card.title">
+      <v-col cols="12" md="6" v-for="card in cards" :key="card.title">
         <v-card
           elevation="2"
           min-width="250"

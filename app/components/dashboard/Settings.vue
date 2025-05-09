@@ -3,7 +3,7 @@
     <v-row justify="center" align="center" class="w-full h-full">
       <v-col cols="12" md="10">
         <v-card class="pa-4">
-          <v-card-title class="text-h5">Settings</v-card-title>
+          <v-card-title class="text-h5">Settings-{{ navDrawer }}</v-card-title>
           <v-divider></v-divider>
           <v-card-text>
             <p>List of settings for your courses.</p>
@@ -14,3 +14,6 @@
     </v-row>
   </v-layout>
 </template>
+<script setup lang="ts">
+const { navDrawer } = useDrawer();
+</script>

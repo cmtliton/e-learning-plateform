@@ -1,24 +1,30 @@
 <template>
-  <v-navigation-drawer
-    permanent
-    class="bg-cyan-darken-2"
-    location="left"
-    height="100vh"
-  >
-    <v-list density="compact" nav>
-      <v-list-item
-        v-for="(item, index) in items"
-        :key="index"
-        link
-        :title="item.title"
-        :prepend-icon="item.icon"
-        :to="item.to"
-      />
-    </v-list>
-  </v-navigation-drawer>
+  <v-card elevation="0" class="bg-cyan-darken-2">
+    <v-navigation-drawer
+      v-model="navDrawer"
+      class="bg-cyan-darken-2"
+      location="left"
+      :permanent="!$vuetify.display.smAndDown"
+      :temporary="$vuetify.display.smAndDown"
+      app
+    >
+      <v-list density="compact" nav>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          link
+          :title="item.title"
+          :prepend-icon="item.icon"
+          :to="item.to"
+        />
+      </v-list>
+    </v-navigation-drawer>
+  </v-card>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import { useDrawer } from "~/composables/useDrawer";
+const { navDrawer } = useDrawer();
 const items = ref([
   {
     title: "Dashboard",
