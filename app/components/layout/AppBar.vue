@@ -56,20 +56,16 @@
       </v-tab>
       <v-spacer />
       <v-tab v-if="!user">
-        <userAuthDialog />
+        <UserAuthDialog />
       </v-tab>
     </v-tabs>
   </v-app-bar>
 </template>
-<script setup>
+<script setup lang="ts">
+import UserCard from "../user/UserCard.vue";
 const { navDrawer } = useDrawer();
 const tab = ref(null);
-defineProps({
-  items: {
-    type: Array,
-  },
-  user: {
-    type: Object,
-  },
-});
+const { itemsPage } = useMenus();
+const items = itemsPage;
+const { user } = useAuth();
 </script>

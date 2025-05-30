@@ -8,4 +8,11 @@
 </template>
 <script setup lang="ts">
 import courses from "~/components/courses/courses.vue";
+definePageMeta({
+  middleware: [
+    function ({ params }, from) {
+      "auth";
+    },
+  ],
+});
 </script>

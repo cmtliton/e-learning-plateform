@@ -32,40 +32,40 @@
 </template>
 <script setup>
 import { useLocalStorage } from "@vueuse/core";
-import { ref } from "vue";
 const course = useCourse();
 const route = useRoute();
 const progress = useLocalStorage("progress", []);
 
 definePageMeta({
-  middleware: [function ({ params }, from) {
-    const course = useCourse();
-    const chapter = course.chapters.find(
-      (chapter) => chapter.slug === params.chapterSlug
-    );
-    if (!chapter) {
-      return abortNavigation(
-        createError({
-          statusCode: 404,
-          message: "Chapter not found",
-        })
+  middleware: [
+    function ({ params }, from) {
+      const course = useCourse();
+      const chapter = course.chapters.find(
+        (chapter) => chapter.slug === params.chapterSlug
       );
-    }
+      if (!chapter) {
+        return abortNavigation(
+          createError({
+            statusCode: 404,
+            message: "Chapter not found",
+          })
+        );
+      }
 
-    const lesson = chapter.lessons.find(
-      (lesson) => lesson.slug === params.lessonSlug
-    );
-    if (!lesson) {
-      return abortNavigation(
-        createError({
-          statusCode: 404,
-          message: "Lesson not found",
-        })
+      const lesson = chapter.lessons.find(
+        (lesson) => lesson.slug === params.lessonSlug
       );
-    }
-  },
-  'auth'
-]
+      if (!lesson) {
+        return abortNavigation(
+          createError({
+            statusCode: 404,
+            message: "Lesson not found",
+          })
+        );
+      }
+    },
+    "auth",
+  ],
 });
 
 const chapter = computed(() => {

@@ -9,7 +9,7 @@
               <v-img
                 lazy-src="https://picsum.photos/id/11/100/60"
                 :src="preview"
-                height="230"
+                height="245"
                 cover
                 class="mb-5 rounded"
               />
@@ -24,6 +24,7 @@
                 class="mb-5"
                 @change="previewImage"
                 variant="outlined"
+                density="compact"
               />
             </v-col>
             <v-col cols="12" sm="12">
